@@ -2,7 +2,7 @@
         port (
 
             state in : bit;
-            sum out : natural 
+            sum out : natural; 
             
             
         );
