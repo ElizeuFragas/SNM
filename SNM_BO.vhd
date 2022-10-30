@@ -1,8 +1,8 @@
     entity SNM_BO is
         port (
 
-            p in : bit;
-            soma out : natural 
+            state in : bit;
+            sum out : natural 
             
             
         );
