@@ -3,7 +3,7 @@
 
             p in : bit;
             soma out : natural 
-            fd
+            
             
         );
     end entity SNM_BO;
