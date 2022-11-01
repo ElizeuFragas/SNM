@@ -2,4 +2,5 @@
 *.qsf
 *.bak
 *.bak
+*.qws
 **/db
