@@ -1,17 +1,18 @@
     entity SNM_BO is
         port (
 
-            state in : bit;
-            sum out : natural; 
+        	type tipo_estado is (A, B, C, D, E);
+            state in : tipo_estado;
+            sum out : interger; 
             
             
         );
     end entity SNM_BO;
 
-    architecture design of SNM_BO is
+    architecture behave of SNM_BO is
         
     begin
         
         
         
-    end architecture design;
+    end architecture behave;
