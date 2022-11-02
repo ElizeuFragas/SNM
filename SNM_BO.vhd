@@ -37,7 +37,7 @@ begin
          end if;
     else
          if endr < 100 then
-              sum <= std_logic_vector(unsigned(std_logic_vector(to_unsigned(endr,2))) + unsigned(std_logic_vector(to_unsigned(1,2))));
+              sum <= std_logic_vector(to_unsigned(endr,2) + to_unsigned(1,2));
               endr <= to_integer(unsigned(sum));
               chk_endr <= '0' ;
          else
