@@ -4,7 +4,7 @@ use IEEE.numeric_std.all;
 
 entity SNM_BC is
     generic(
-        nbits : integer
+        nbits : integer := 32
     );
     port (
 
@@ -33,7 +33,7 @@ begin
             p_state <= W;
         -- estado de espera
         when W => 
-            if s_inity = '1' then
+            if s_inityIn = '1' then
                 p_state <= C;
             else
                 p_state <= W;
@@ -42,8 +42,6 @@ begin
         when C =>
             if chk_endr = '0' then
                 p_state <= A;
-                id_op <= op;
-                op <= not op;
             else
                 p_state <= O;
             end if;
@@ -53,10 +51,28 @@ begin
         -- estado de saída        
         when O => 
             p_state <= W;
-            out_sum <= in_sum;
+            
     
     end case;
    end process State;
+	
+	State1: process(a_state)
+   begin
+    case a_state is
+	     when I =>
+					 out_sum <= X"00000000";
+		  when W =>
+					out_sum <= X"00000000";
+        when C =>
+                id_op <= op;
+                op <= not op;
+        when A =>
+					out_sum <= X"00000000";
+		  when O =>
+					out_sum <= in_sum;
+		   
+    end case;
+   end process State1;
 
    registrador_estado : process(clk)
    begin

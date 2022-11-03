@@ -5,7 +5,7 @@ use IEEE.numeric_std.all;
 entity SNM_BO is
     
     generic(
-        nbits : integer
+        nbits : integer := 32
     );
     port (
         in_data : in std_logic_vector(nbits-1 downto 0);
@@ -26,13 +26,13 @@ begin
      if id_op = '0' then
          if inp = '0' then
              if in_data < "0" then
-                 sum <= std_logic_vector(signed(a_sum) + signed(in_data));
-                 a_sum <= sum;
+                 out_sum <= std_logic_vector(signed(a_sum) + signed(in_data));
+                 a_sum <= out_sum;
              end if;    
          elsif inp = '1' then
              if in_data > "0" then
-                 sum <= std_logic_vector(signed(a_sum) + signed(in_data));
-                 a_sum <= sum;
+                 out_sum <= std_logic_vector(signed(a_sum) + signed(in_data));
+                 a_sum <= out_sum;
              end if;
          end if;
     else
