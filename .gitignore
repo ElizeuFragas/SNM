@@ -3,6 +3,9 @@
 *.bak
 *.bak
 *.qws
+*.rpt
+*.vwf
 **/db
 **/output_files
+**/simulation
 **/incremental_db

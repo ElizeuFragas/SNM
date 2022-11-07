@@ -4,15 +4,17 @@ use IEEE.numeric_std.all;
 
 entity SNM_BC is
     generic(
-        nbits : integer := 32
+        nbits : integer
     );
     port (
 
-        chk_endr, s_inityIn : in bit;
+        chk_endr, s_inityIn : in std_logic;
         clk : in std_logic;
+        in_data : in std_logic_vector(nbits-1 downto 0);
         in_sum : in std_logic_vector(nbits-1 downto 0);
+        out_data : out std_logic_vector(nbits-1 downto 0);
         out_sum : out std_logic_vector(nbits-1 downto 0);
-        id_op : out bit
+        id_op : out std_logic
         
     );
 end entity SNM_BC;
@@ -21,11 +23,11 @@ architecture behave of SNM_BC is
 
     type t_state is (I, W, C, A, O);
     signal a_state, p_state : t_state := I;
-    signal op : bit := '0';
+    signal op : std_logic := '0';
 
 begin
     
-   State: process(a_state)
+   States: process(a_state)
    begin
     case a_state is
         -- estado inicial
@@ -52,27 +54,31 @@ begin
         when O => 
             p_state <= W;
             
-    
     end case;
-   end process State;
+   end process;
 	
-	State1: process(a_state)
-   begin
-    case a_state is
-	     when I =>
-					 out_sum <= X"00000000";
-		  when W =>
-					out_sum <= X"00000000";
+   operations: process(a_state)
+    
+    constant none : std_logic_vector := X"00000000";
+
+    begin
+     case a_state is
+	    when I =>
+	 		out_sum <= none;
+	 	when W =>
+	 		out_sum <= none;
         when C =>
-                id_op <= op;
-                op <= not op;
+            out_sum <= none;
         when A =>
-					out_sum <= X"00000000";
-		  when O =>
-					out_sum <= in_sum;
-		   
-    end case;
-   end process State1;
+            id_op <= op;
+            out_data <= in_data;
+            op <= not op;
+            out_sum <= none;
+	 	when O =>
+	 		out_sum <= in_sum;
+     
+     end case;
+   end process;
 
    registrador_estado : process(clk)
    begin
@@ -80,6 +86,5 @@ begin
            a_state <= p_state;
        end if;
    end process;
-    
     
 end architecture behave;
