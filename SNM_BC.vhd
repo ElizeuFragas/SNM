@@ -3,18 +3,10 @@ use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 
 entity SNM_BC is
-    generic(
-        nbits : integer
-    );
     port (
 
-        chk_endr, s_inityIn : in std_logic;
-        clk : in std_logic;
-        in_data : in std_logic_vector(nbits-1 downto 0);
-        in_sum : in std_logic_vector(nbits-1 downto 0);
-        out_data : out std_logic_vector(nbits-1 downto 0);
-        out_sum : out std_logic_vector(nbits-1 downto 0);
-        id_op : out std_logic
+        clk, p_in, s_inityIn, cp : in std_logic;
+        p_out, ld, clr, comnd : out std_logic
         
     );
 end entity SNM_BC;
@@ -42,9 +34,9 @@ begin
             end if;
         -- estado de verificação
         when C =>
-            if chk_endr = '0' then
+            if cp = '0' then
                 p_state <= A;
-            else
+            elsif cp = '1' then
                 p_state <= O;
             end if;
         -- estado de soma
@@ -59,23 +51,35 @@ begin
 	
    operations: process(a_state)
     
-    constant none : std_logic_vector := X"00000000";
-
     begin
      case a_state is
 	    when I =>
-	 		out_sum <= none;
+            comnd <= 'U';
+            p_out <= p_in;
+            ld <= '0';
+            clr <= '0';
 	 	when W =>
-	 		out_sum <= none;
+            comnd <= 'U';
+            p_out <= p_in;
+            ld <= '0';
+            clr <= '0';
         when C =>
-            out_sum <= none;
+            comnd <= 'U';
+            p_out <= p_in;
+            ld <= '0';
+            clr <= '0';
         when A =>
-            id_op <= op;
-            out_data <= in_data;
+            comnd <= op;
             op <= not op;
-            out_sum <= none;
+            p_out <= p_in;
+            ld <= '1';
+            clr <= '0';
+            
 	 	when O =>
-	 		out_sum <= in_sum;
+            comnd <= 'U';
+            p_out <= p_in;
+            ld <= '0';
+            clr <= '1';
      
      end case;
    end process;

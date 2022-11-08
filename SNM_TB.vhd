@@ -15,7 +15,7 @@ architecture rtl of SNM_TB is
             p, s_inity : in std_logic;
             clk : in std_logic;
             in_data : in std_logic_vector(nbits-1 downto 0);
-            out_endr : out std_logic_vector(nbits-26 downto 0);
+            out_endr : out std_logic_vector(nbits-1 downto 0);
             sum : out std_logic_vector(nbits-1 downto 0)
         );
     end component;
@@ -24,7 +24,7 @@ architecture rtl of SNM_TB is
     signal clk : std_logic := '0';
     signal sum : std_logic_vector(31 downto 0);
     signal in_data : std_logic_vector(31 downto 0);
-    signal out_endr : std_logic_vector(6 downto 0);
+    signal out_endr : std_logic_vector(31 downto 0);
 
     type storage is array(0 to 99) of integer;
 
