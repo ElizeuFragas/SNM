@@ -147,6 +147,7 @@ begin
         if unsigned(outp1) < 100 then
             cp <= '0'; 
             outp3 <= outp1;
+            out_sum <= (others => 'X');
         else 
             cp <= '1';    
             out_sum  <= outp2;
