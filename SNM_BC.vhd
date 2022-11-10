@@ -56,28 +56,28 @@ begin
      case a_state is
 	    when I =>
             comnd <= 'U';
-            chk <= 'U';
+            chk   <= 'U';
             p_out <= p_in;
             ld1   <= '0';
             ld2   <= '0';
             clr   <= '0';
-            s_out   <= '0';
+            s_out <= '0';
 	 	when W =>
             comnd <= 'U';
-            chk <= '1';
+            chk   <= '1';
             p_out <= p_in;
             ld1   <= '0';
             ld2   <= '0';
             clr   <= '0';
-            s_out   <= '0';
+            s_out <= '0';
         when C =>
             comnd <= 'U';
-            chk <= '1';
+            chk   <= '1';
             p_out <= p_in;
             ld1   <= '0';
             ld2   <= '0';
             clr   <= '0';
-            s_out   <= '0';
+            s_out <= '0';
         when A =>
             ld1   <= op1;
             comnd <= op2;
@@ -85,18 +85,18 @@ begin
             chk   <= '0';
             p_out <= p_in;
             clr   <= '0';
-            s_out   <= '0';
+            s_out <= '0';
             op1 := not op1;
             op2 := not op2;
       
 	 	when O =>
             comnd <= 'U';
-            chk <= '0';
+            chk   <= '0';
             p_out <= p_in;
             ld1   <= '0';
             ld2   <= '0';
             clr   <= '1';
-            s_out   <= '1';
+            s_out <= '1';
      
      end case;
    end process;
