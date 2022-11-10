@@ -6,7 +6,7 @@ entity SNM_BC is
     port (
 
         clk, p_in, s_inityIn, cp    : in std_logic;
-        p_out, ld1, ld2, clr, comnd, chk_endr : out std_logic
+        p_out, ld1, clr, ld2, comnd, chk, s_out : out std_logic
         
     );
 end entity SNM_BC;
@@ -56,42 +56,47 @@ begin
      case a_state is
 	    when I =>
             comnd <= 'U';
-            chk_endr <= 'U';
+            chk <= 'U';
             p_out <= p_in;
             ld1   <= '0';
             ld2   <= '0';
             clr   <= '0';
+            s_out   <= '0';
 	 	when W =>
             comnd <= 'U';
-            chk_endr <= '1';
+            chk <= '1';
             p_out <= p_in;
             ld1   <= '0';
             ld2   <= '0';
             clr   <= '0';
+            s_out   <= '0';
         when C =>
             comnd <= 'U';
-            chk_endr <= '1';
+            chk <= '1';
             p_out <= p_in;
             ld1   <= '0';
             ld2   <= '0';
             clr   <= '0';
+            s_out   <= '0';
         when A =>
             ld1   <= op1;
             comnd <= op2;
             ld2   <= op2;
-            chk_endr <= '0';
+            chk   <= '0';
             p_out <= p_in;
             clr   <= '0';
+            s_out   <= '0';
             op1 := not op1;
             op2 := not op2;
       
 	 	when O =>
             comnd <= 'U';
-            chk_endr <= 'U';
+            chk <= '0';
             p_out <= p_in;
             ld1   <= '0';
             ld2   <= '0';
             clr   <= '1';
+            s_out   <= '1';
      
      end case;
    end process;

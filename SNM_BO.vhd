@@ -14,6 +14,7 @@ entity SNM_BO is
         in_data  : in std_logic_vector(nbits-1 downto 0);
         comndC   : in std_logic;
         comndP   : in std_logic;
+        s_out    : in std_logic;
         ld1, ld2 : in std_logic;
         clr      : in std_logic;
         cp       : out std_logic;
@@ -27,7 +28,7 @@ architecture behave of SNM_BO is
 
     signal s_endr, s_sum, outp1, outp2, outp3, data, s1, s2 : std_logic_vector(nbits-1 downto 0) := (others => '0');
     signal s_cp : std_logic := '0';
-    signal one : std_logic_vector(nbits-1 downto 0) := X"00000001";
+    signal one  : std_logic_vector(nbits-1 downto 0) := X"00000001";
 
 
     component MULTIPLEX is
@@ -35,8 +36,8 @@ architecture behave of SNM_BO is
         port (
      
             i1, i2 : in std_logic_vector(nbits-1 downto 0);
-            sel : in std_logic;
-            o : out std_logic_vector(nbits-1 downto 0)
+            sel    : in std_logic;
+            o      : out std_logic_vector(nbits-1 downto 0)
     
         );
     end component MULTIPLEX;
@@ -46,7 +47,7 @@ architecture behave of SNM_BO is
         port (
             
             i1, i2     : in std_logic_vector(nbits-1 downto 0);
-            result       : out std_logic_vector(nbits-1 downto 0)
+            result     : out std_logic_vector(nbits-1 downto 0)
             
         );
     end component ADDER;
@@ -72,10 +73,10 @@ begin
     generic map (nbits => nbits)
     port map (
 
-        i1 => data,
-        i2 => one,
+        i1  => data,
+        i2  => one,
         sel => comndC,
-        o => s1
+        o   => s1
 
     );
 
@@ -83,10 +84,10 @@ begin
     generic map (nbits => nbits)
     port map (
 
-        i1 => outp2,
-        i2 => outp1,
+        i1  => outp2,
+        i2  => outp1,
         sel => comndC,
-        o => s2
+        o   => s2
 
     );
 
@@ -94,8 +95,8 @@ begin
     generic map (nbits => nbits)
     port map (
 
-        i1       => s1,
-        i2       => s2,
+        i1     => s1,
+        i2     => s2,
         result => s_sum
 
     );
@@ -145,13 +146,17 @@ begin
             end if;
         end if;            
         if unsigned(outp1) < 100 then
-            cp <= '0'; 
+            cp    <= '0'; 
             outp3 <= outp1;
-            out_sum <= (others => 'X');
         else 
             cp <= '1';    
-            out_sum  <= outp2;
         end if;
+    end if;
+
+    if s_out = '1' then
+        out_sum <= outp2;
+    else
+        out_sum <= (others => 'X');
     end if;
 
 

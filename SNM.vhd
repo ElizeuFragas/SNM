@@ -17,13 +17,13 @@ end entity SNM;
 
 architecture behave of SNM is
 
-    signal s_clr, s_ld1, s_ld2, s_p, s_cp, s_comnd, s_chk : std_logic := '0';
+    signal s_clr, s_ld1, s_ld2, s_p, s_cp, s_comnd, s_chk, s_out : std_logic := '0';
 
     component SNM_BC is
         port (
     
             clk, p_in, s_inityIn, cp : in std_logic;
-            p_out, ld1, ld2, clr, comnd, chk_endr : out std_logic
+            p_out, ld1, ld2, clr, comnd, chk, s_out : out std_logic
             
         );
     end component SNM_BC;
@@ -31,7 +31,7 @@ architecture behave of SNM is
     component SNM_BO is
     
         generic(
-            nbits : integer := 32
+            nbits : integer
         );
         port (
     
@@ -40,6 +40,7 @@ architecture behave of SNM is
             in_data  : in std_logic_vector(nbits-1 downto 0);
             comndC   : in std_logic;
             comndP   : in std_logic;
+            s_out    : in std_logic;
             ld1      : in std_logic;
             ld2      : in std_logic;
             clr      : in std_logic;
@@ -56,14 +57,15 @@ begin
     port map(
 
         clk       => clk,
-        chk_endr  => s_chk,
+        chk       => s_chk,
         s_inityIn => s_inity,
         p_in      => p,
         comnd     => s_comnd,
+        s_out     => s_out,
         cp        => s_cp,
         p_out     => s_p,
         ld1       => s_ld1,
-        ld2        => s_ld2,
+        ld2       => s_ld2,
         clr       => s_clr
      
     );
@@ -75,6 +77,7 @@ begin
         clk      => clk,
         chk      => s_chk,
         in_data  => in_data,
+        s_out    => s_out,
         comndC   => s_comnd,
         comndP   => s_p,
         ld1      => s_ld1,

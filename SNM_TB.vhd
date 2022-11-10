@@ -52,7 +52,7 @@ begin
     
    process(clk)
    begin
-    p <= '0';
+    p <= '1';
     s_inity <= '1';
     if rising_edge(clk) then
         in_data <= std_logic_vector(to_signed(memory(to_integer(unsigned(out_endr))), 32));
