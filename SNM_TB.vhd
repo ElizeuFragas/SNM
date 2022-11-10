@@ -13,18 +13,18 @@ architecture rtl of SNM_TB is
         
         port (
             p, s_inity : in std_logic;
-            clk : in std_logic;
-            in_data : in std_logic_vector(nbits-1 downto 0);
-            out_endr : out std_logic_vector(nbits-1 downto 0);
-            sum : out std_logic_vector(nbits-1 downto 0)
+            clk        : in std_logic;
+            in_data    : in std_logic_vector(nbits-1 downto 0);
+            out_endr   : out std_logic_vector(nbits-1 downto 0);
+            sum        : out std_logic_vector(nbits-1 downto 0)
         );
     end component;
 
     signal p, s_inity : std_logic;
-    signal clk : std_logic := '0';
-    signal sum : std_logic_vector(31 downto 0);
-    signal in_data : std_logic_vector(31 downto 0);
-    signal out_endr : std_logic_vector(31 downto 0);
+    signal clk        : std_logic := '0';
+    signal sum        : std_logic_vector(31 downto 0) := (others => '0');
+    signal in_data    : std_logic_vector(31 downto 0) := (others => '0');
+    signal out_endr   : std_logic_vector(31 downto 0) := (others => '0');
 
     type storage is array(0 to 99) of integer;
 
@@ -42,12 +42,12 @@ architecture rtl of SNM_TB is
 begin
     sd : SNM
     port map(
-        p => p,
-        s_inity => s_inity,
-        clk => clk,
-        in_data => in_data,
+        p        => p,
+        s_inity  => s_inity,
+        clk      => clk,
+        in_data  => in_data,
         out_endr => out_endr,
-        sum => sum
+        sum      => sum
     );
     
    process(clk)
