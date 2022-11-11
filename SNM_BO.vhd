@@ -31,7 +31,7 @@ architecture behave of SNM_BO is
     signal one  : std_logic_vector(nbits-1 downto 0) := X"00000001";
 
 
-    component MULTIPLEX is
+    component MULTIPLEXER is
         generic(nbits : integer);
         port (
      
@@ -40,7 +40,7 @@ architecture behave of SNM_BO is
             o      : out std_logic_vector(nbits-1 downto 0)
     
         );
-    end component MULTIPLEX;
+    end component MULTIPLEXER;
 
     component ADDER is
         generic ( nbits : integer );
@@ -69,7 +69,7 @@ begin
     
 
     
-    mux1 : MULTIPLEX
+    mux1 : MULTIPLEXER
     generic map (nbits => nbits)
     port map (
 
@@ -80,7 +80,7 @@ begin
 
     );
 
-    mux2 : MULTIPLEX
+    mux2 : MULTIPLEXER
     generic map (nbits => nbits)
     port map (
 

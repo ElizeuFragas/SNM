@@ -2,7 +2,7 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 
-entity REGIS is
+entity REGISTER is
     generic(
         nbits : integer
     );
@@ -15,9 +15,9 @@ entity REGIS is
         reg_out : out std_logic_vector(nbits-1 downto 0) 
 
     );
-end entity REGIS;
+end entity REGISTER;
 
-architecture behave of REGIS is
+architecture behave of REGISTER is
 
     signal data : std_logic_vector(nbits-1 downto 0) := (others => '0');
     

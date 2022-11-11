@@ -2,7 +2,7 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 
-entity MULTIPLEX is
+entity MULTIPLEXER is
     generic(nbits : integer);
     port (
  
@@ -11,9 +11,9 @@ entity MULTIPLEX is
         o      : out std_logic_vector(nbits-1 downto 0)
 
     );
-end entity MULTIPLEX;
+end entity MULTIPLEXER;
 
-architecture behave of MULTIPLEX is
+architecture behave of MULTIPLEXER is
     
 begin
     
