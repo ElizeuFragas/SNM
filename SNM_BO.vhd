@@ -127,7 +127,6 @@ begin
     
     out_endr <= outp3;
     
-
    cond: process(clk)
    begin
 
@@ -158,8 +157,6 @@ begin
     else
         out_sum <= (others => 'X');
     end if;
-
-
    end process;
 
 end architecture behave;
